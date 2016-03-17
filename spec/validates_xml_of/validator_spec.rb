@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ValidatesXml::Validator do
+describe ValidatesXmlOf::Validator do
   before do
     I18n.enforce_available_locales = false
 
@@ -34,7 +34,7 @@ describe ValidatesXml::Validator do
       let(:formed_xml) { '<?xml version="1.0"?><foo></foo>' }
 
       before do
-        ValidatesXml.schema_paths = "examples/xsds"
+        ValidatesXmlOf.schema_paths = "examples/xsds"
       end
 
       it 'when informed an invalid xml from the schema point of view' do
@@ -54,7 +54,7 @@ describe ValidatesXml::Validator do
       let(:formed_xml) { '<?xml version="1.0"?><foo></foo>' }
 
       before do
-        ValidatesXml.schema_paths = "examples/xsds"
+        ValidatesXmlOf.schema_paths = "examples/xsds"
       end
 
       it 'when xml is well formed' do

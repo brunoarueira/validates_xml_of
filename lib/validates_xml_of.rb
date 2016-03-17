@@ -1,7 +1,7 @@
 require 'nokogiri'
 
-module ValidatesXml
-  autoload :VERSION, "validates_xml/version"
+module ValidatesXmlOf
+  autoload :VERSION, "validates_xml_of_of/version"
 
   class << self
     attr_accessor :schema_paths
@@ -38,7 +38,7 @@ module ValidatesXml
   end
 end
 
-require 'validates_xml/validator'
-require 'validates_xml/active_model' if defined?(::ActiveModel)
-require 'validates_xml/railtie' if defined?(::Rails::Railtie)
-require 'validates_xml/matchers/validate_xml_of' if defined?(::RSpec)
+require 'validates_xml_of/validator'
+require 'validates_xml_of/active_model' if defined?(::ActiveModel)
+require 'validates_xml_of/railtie' if defined?(::Rails::Railtie)
+require 'validates_xml_of/matchers/validate_xml_of' if defined?(::RSpec)

@@ -1,6 +1,6 @@
-require 'validates_xml'
+require 'validates_xml_of'
 
-module ValidatesXml
+module ValidatesXmlOf
   module Matchers
     class ValidateXmlOf
       def initialize(attribute)
@@ -10,14 +10,14 @@ module ValidatesXml
       def matches?(given_record)
         @given_record = given_record
 
-        @expected_message ||= ValidatesXml.default_message
+        @expected_message ||= ValidatesXmlOf.default_message
 
         valid_xml? && valid_xml_based_on_schema?
       end
 
       def with_schema(schema)
         @schema = schema
-        @expected_message ||= ValidatesXml.default_schema_message
+        @expected_message ||= ValidatesXmlOf.default_schema_message
 
         self
       end

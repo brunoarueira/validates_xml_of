@@ -1,14 +1,14 @@
 require 'spec_helper'
 require 'i18n'
 
-describe ValidatesXml do
+describe ValidatesXmlOf do
   describe 'setup' do
     it 'set schema_paths through setup block' do
-      ValidatesXml.setup do |config|
+      ValidatesXmlOf.setup do |config|
         config.schema_paths = "examples/xsds"
       end
 
-      expect(ValidatesXml.schema_paths).to eq "examples/xsds"
+      expect(ValidatesXmlOf.schema_paths).to eq "examples/xsds"
     end
   end
 
@@ -19,7 +19,7 @@ describe ValidatesXml do
       end
 
       it 'returns the DEFAULT_MESSAGE constant' do
-        expect(ValidatesXml.default_message).to eq 'does not appear to be a valid xml'
+        expect(ValidatesXmlOf.default_message).to eq 'does not appear to be a valid xml'
       end
     end
 
@@ -29,7 +29,7 @@ describe ValidatesXml do
       end
 
       it 'returns the i18n defined message' do
-        expect(ValidatesXml.default_message).to eq 'is not a xml'
+        expect(ValidatesXmlOf.default_message).to eq 'is not a xml'
       end
     end
   end
@@ -41,7 +41,7 @@ describe ValidatesXml do
       end
 
       it 'returns the DEFAULT_SCHEMA_MESSAGE constant' do
-        expect(ValidatesXml.default_schema_message).to eq 'does not appear to be a valid xml based on schema informed'
+        expect(ValidatesXmlOf.default_schema_message).to eq 'does not appear to be a valid xml based on schema informed'
       end
     end
 
@@ -51,7 +51,7 @@ describe ValidatesXml do
       end
 
       it 'returns the i18n defined message' do
-        expect(ValidatesXml.default_message).to eq 'xml input is not valid for the schema'
+        expect(ValidatesXmlOf.default_message).to eq 'xml input is not valid for the schema'
       end
     end
   end

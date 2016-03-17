@@ -1,4 +1,4 @@
-# ValidatesXml
+# ValidatesXmlOf
 
 Validates if a given string contains a valid xml and validates based on defined
 schema too.
@@ -8,7 +8,7 @@ schema too.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'validates_xml'
+gem 'validates_xml_of'
 ```
 
 And then execute:
@@ -17,7 +17,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install validates_xml
+    $ gem install validates_xml_of
 
 ## Usage
 
@@ -38,7 +38,7 @@ end
 And if you want to use xsd, you will need to define an initializer to setup a path for your schemas:
 
 ```
-ValidatesXml.setup do |configure|
+ValidatesXmlOf.setup do |configure|
   config.schema_paths = "lib/xsds"
 end
 ```

@@ -1,4 +1,4 @@
-module ValidatesXml
+module ValidatesXmlOf
   class Validator
     def initialize(xml, options = {})
       self.xml = xml
@@ -41,8 +41,8 @@ module ValidatesXml
 
     def default_options
       @default_options ||= {
-        message: ValidatesXml.default_message,
-        schema_message: ValidatesXml.default_schema_message
+        message: ValidatesXmlOf.default_message,
+        schema_message: ValidatesXmlOf.default_schema_message
       }
     end
 
@@ -62,7 +62,7 @@ module ValidatesXml
     end
 
     def lookup_schema_file(schema_name)
-      paths = ValidatesXml.schema_paths
+      paths = ValidatesXmlOf.schema_paths
       schema_file = nil
 
       return schema_file if paths.empty? || paths.nil?

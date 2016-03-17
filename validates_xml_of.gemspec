@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'validates_xml/version'
+require 'validates_xml_of/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "validates_xml"
-  spec.version       = ValidatesXml::VERSION
+  spec.name          = "validates_xml_of"
+  spec.version       = ValidatesXmlOf::VERSION
   spec.authors       = ["Bruno Arueira"]
   spec.email         = ["contato@brunoarueira.com"]
 

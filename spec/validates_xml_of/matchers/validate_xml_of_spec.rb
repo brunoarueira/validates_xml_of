@@ -1,5 +1,5 @@
 require "spec_helper"
-require "validates_xml/matchers/validate_xml_of"
+require "validates_xml_of/matchers/validate_xml_of"
 
 class Post
   include ::ActiveModel::Validations
@@ -11,7 +11,7 @@ class Post
 end
 
 RSpec.configure do |config|
-  config.include ValidatesXml::Matchers
+  config.include ValidatesXmlOf::Matchers
 end
 
 describe Post do

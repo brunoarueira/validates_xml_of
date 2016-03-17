@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'validates_xml/active_model'
+require 'validates_xml_of/active_model'
 
 describe ActiveModel::Validations::XmlValidator do
   let(:content) { |example| example.description }
@@ -60,7 +60,7 @@ describe ActiveModel::Validations::XmlValidator do
     end
 
     before do
-      ValidatesXml.setup do |config|
+      ValidatesXmlOf.setup do |config|
         config.schema_paths = "examples/xsds"
       end
     end

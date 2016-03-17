@@ -1,4 +1,4 @@
-require 'validates_xml'
+require 'validates_xml_of'
 require 'active_model'
 
 module ActiveModel
@@ -11,7 +11,7 @@ module ActiveModel
           xml_content = record.send(attribute).read
         end
 
-        validator = ValidatesXml::Validator.new(xml_content, options)
+        validator = ValidatesXmlOf::Validator.new(xml_content, options)
         error = validator.validate
 
         return if error.blank?
