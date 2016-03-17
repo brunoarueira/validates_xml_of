@@ -1,0 +1,5 @@
+en:
+  errors:
+    messages:
+      invalid_xml: "does not appear to be a valid xml"
+      invalid_xml_based_on_schema: "does not appear to be a valid xml based on schema informed"
