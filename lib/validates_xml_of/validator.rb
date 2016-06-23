@@ -47,7 +47,7 @@ module ValidatesXmlOf
     end
 
     def merged_options
-      @merged_options ||= options.merge(default_options) { |key, old, new| old }
+      @merged_options ||= options.merge(default_options) { |_, old, _| old }
     end
 
     def is_a_valid_xml?(document_content)
