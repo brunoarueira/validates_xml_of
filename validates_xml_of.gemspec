@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Validates if an attribute has a valid xml content or a xsd valid content.}
   spec.description   = spec.summary
-  spec.homepage      = "https://github.com/brunoarueira/validates_xml"
+  spec.homepage      = "https://github.com/brunoarueira/validates_xml_of"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
