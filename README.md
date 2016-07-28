@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/brunoarueira/validates_xml_of.svg?branch=master)](https://travis-ci.org/brunoarueira/validates_xml_of)
 [![Code Climate](https://codeclimate.com/github/brunoarueira/validates_xml_of/badges/gpa.svg)](https://codeclimate.com/github/brunoarueira/validates_xml_of)
+[![Test Coverage](https://codeclimate.com/github/brunoarueira/validates_xml_of/badges/coverage.svg)](https://codeclimate.com/github/brunoarueira/validates_xml_of/coverage)
 
 Validates if a given string contains a valid xml and validates based on defined
 schema too.
