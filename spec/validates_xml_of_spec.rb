@@ -55,4 +55,55 @@ describe ValidatesXmlOf do
       end
     end
   end
+
+  describe '.lookup_schema_file' do
+    context 'with nil, empty or invalid schema path' do
+      it 'returns nil when the path is nil' do
+        ValidatesXmlOf.schema_paths = nil
+
+        expect(ValidatesXmlOf.lookup_schema_file('Schema')).to be_nil
+      end
+
+      it 'returns nil with inexistent path' do
+        ValidatesXmlOf.schema_paths = 'erroneous_path/xsds'
+
+        expect(ValidatesXmlOf.lookup_schema_file('Schema')).to be_nil
+      end
+    end
+
+    context 'based on the schema name' do
+      it 'returns nil if the schema is not found' do
+        ValidatesXmlOf.schema_paths = 'examples/xsds'
+
+        expect(ValidatesXmlOf.lookup_schema_file('Schema2')).to be_nil
+      end
+
+      it 'returns the schema file with one schema path informed' do
+        ValidatesXmlOf.schema_paths = 'examples/xsds'
+
+        lookup_schema_file = IO.read(ValidatesXmlOf.lookup_schema_file('Schema'))
+        compared_file = IO.read(File.new('examples/xsds/Schema.xsd'))
+
+        expect(lookup_schema_file).to eq compared_file
+      end
+
+      it 'returns the schema file with multiple schema paths informed' do
+        ValidatesXmlOf.schema_paths = ['examples/xsds', nil]
+
+        lookup_schema_file = IO.read(ValidatesXmlOf.lookup_schema_file('Schema'))
+        compared_file = IO.read(File.new('examples/xsds/Schema.xsd'))
+
+        expect(lookup_schema_file).to eq compared_file
+      end
+
+      it 'returns the schema file with some invalid schema path' do
+        ValidatesXmlOf.schema_paths = ['examples/xsds', 'erroneous_path/xsds']
+
+        lookup_schema_file = IO.read(ValidatesXmlOf.lookup_schema_file('Schema'))
+        compared_file = IO.read(File.new('examples/xsds/Schema.xsd'))
+
+        expect(lookup_schema_file).to eq compared_file
+      end
+    end
+  end
 end

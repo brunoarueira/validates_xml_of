@@ -45,33 +45,6 @@ module ValidatesXmlOf
       schema.validate(document).empty?
     end
 
-    def lookup_schema_file(schema_name)
-      paths = ValidatesXmlOf.schema_paths
-      schema_file = nil
-
-      return schema_file if paths.empty? || paths.nil?
-
-      if paths.is_a?(String)
-        schema_file = schema_file(paths, schema_name)
-      else
-        paths.reject(&:nil?).each do |path|
-          schema_file = schema_file(path, schema_name)
-
-          break unless schema_file
-        end
-      end
-
-      schema_file
-    end
-
-    def schema_file(path, schema_name)
-      schema_file_name = File.join(path, "#{schema_name}.xsd")
-
-      if File.exist?(schema_file_name) && !File.directory?(schema_file_name)
-        return File.open(schema_file_name)
-      end
-    end
-
     def handle_nil_or_empty_content(xml)
       if xml.nil? || xml.empty? || !xml.is_a?(String)
         if options[:schema]
@@ -86,7 +59,7 @@ module ValidatesXmlOf
 
     def handle_content_schema_based(xml)
       if options[:schema]
-        schema = lookup_schema_file(options[:schema])
+        schema = ValidatesXmlOf.lookup_schema_file(options[:schema])
 
         return merged_options[:schema_message] if schema.nil?
 
