@@ -6,15 +6,7 @@ module ValidatesXmlOf
     end
 
     def validate
-      message = nil
-
-      if xml.nil? || xml.empty? || !xml.is_a?(String)
-        if options[:schema]
-          message = merged_options[:schema_message]
-        else
-          message = merged_options[:message]
-        end
-      end
+      message = handle_nil_or_empty_content(xml)
 
       if !is_a_valid_xml?(xml)
         message = merged_options[:message]
@@ -22,15 +14,7 @@ module ValidatesXmlOf
 
       return message unless message.nil?
 
-      if options[:schema]
-        schema = lookup_schema_file(options[:schema])
-
-        return merged_options[:schema_message] if schema.nil?
-
-        if !schema.nil? && !is_a_valid_xml_based_on_schema?(xml, schema)
-          message = merged_options[:schema_message]
-        end
-      end
+      message = handle_content_schema_based(xml)
 
       return message
     end
@@ -86,6 +70,32 @@ module ValidatesXmlOf
       if File.exist?(schema_file_name) && !File.directory?(schema_file_name)
         return File.open(schema_file_name)
       end
+    end
+
+    def handle_nil_or_empty_content(xml)
+      if xml.nil? || xml.empty? || !xml.is_a?(String)
+        if options[:schema]
+          message = merged_options[:schema_message]
+        else
+          message = merged_options[:message]
+        end
+      end
+
+      message
+    end
+
+    def handle_content_schema_based(xml)
+      if options[:schema]
+        schema = lookup_schema_file(options[:schema])
+
+        return merged_options[:schema_message] if schema.nil?
+
+        if !schema.nil? && !is_a_valid_xml_based_on_schema?(xml, schema)
+          message = merged_options[:schema_message]
+        end
+      end
+
+      message
     end
   end
 end
