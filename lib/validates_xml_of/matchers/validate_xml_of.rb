@@ -65,13 +65,7 @@ module ValidatesXmlOf
       end
 
       def attribute_output
-        value = @given_record.send(@attribute)
-
-        if defined?(::CarrierWave) && value.is_a?(::CarrierWave::Uploader::Base)
-          value = @given_record.send(@attribute).read
-        end
-
-        value
+        @given_record.send(@attribute)
       end
     end
 
