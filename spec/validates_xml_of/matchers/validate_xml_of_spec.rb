@@ -7,7 +7,7 @@ class Post
   attr_accessor :content, :content2, :number
 
   validates :content, xml: true
-  validates :content2, xml: { schema: 'Schema' }
+  validates :content2, xml: { schema: 'Schema', message: 'the schema used not validate this' }
 end
 
 RSpec.configure do |config|
@@ -21,7 +21,7 @@ describe Post do
   end
 
   it { should validate_xml_of(:content) }
-  it { should validate_xml_of(:content2).with_schema('Schema') }
+  it { should validate_xml_of(:content2).with_schema('Schema').with_message('the schema used not validate this') }
   it { should_not validate_xml_of(:number) }
 
   context 'invalid behaviour' do
