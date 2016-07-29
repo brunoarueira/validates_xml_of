@@ -28,6 +28,14 @@ describe ValidatesXmlOf::Validator do
 
         expect(validator.validate).to eq 'it is not a xml'
       end
+
+      it 'when informed the schema but the xml is nil' do
+        ValidatesXmlOf.schema_paths = "examples/xsds"
+
+        validator = described_class.new(nil, schema: 'Schema')
+
+        expect(validator.validate).to eq 'does not appear to be a valid xml based on schema informed'
+      end
     end
 
     context 'returns the invalid message based on schema' do

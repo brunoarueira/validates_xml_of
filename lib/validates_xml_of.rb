@@ -24,10 +24,37 @@ module ValidatesXmlOf
       i18n_defined? ? I18n.t(ERROR_SCHEMA_MESSAGE_I18N_KEY, scope: [:errors, :messages], default: DEFAULT_SCHEMA_MESSAGE): DEFAULT_SCHEMA_MESSAGE
     end
 
+    def lookup_schema_file(schema_name)
+      paths = schema_paths
+      schema_file = nil
+
+      return schema_file if paths.nil? || paths.empty?
+
+      if paths.is_a?(String)
+        schema_file = schema_file(paths, schema_name)
+      else
+        paths.reject(&:nil?).each do |path|
+          schema_file = schema_file(path, schema_name)
+
+          break if schema_file
+        end
+      end
+
+      schema_file
+    end
+
     protected
 
     def i18n_defined?
       defined?(I18n)
+    end
+
+    def schema_file(path, schema_name)
+      schema_file_name = File.join(path, "#{schema_name}.xsd")
+
+      if File.exist?(schema_file_name) && !File.directory?(schema_file_name)
+        return File.open(schema_file_name)
+      end
     end
   end
 

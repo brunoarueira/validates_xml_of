@@ -7,10 +7,6 @@ module ActiveModel
       def validate_each(record, attribute, value)
         xml_content = value
 
-        if defined?(::CarrierWave) && value.is_a?(::CarrierWave::Uploader::Base)
-          xml_content = record.send(attribute).read
-        end
-
         validator = ValidatesXmlOf::Validator.new(xml_content, options)
         error = validator.validate
 

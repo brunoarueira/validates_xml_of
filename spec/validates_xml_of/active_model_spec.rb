@@ -3,19 +3,23 @@ require 'validates_xml_of/active_model'
 
 describe ActiveModel::Validations::XmlValidator do
   let(:content) { |example| example.description }
+  let(:content2) { |example| example.description }
 
   describe 'validate without schema' do
     subject do |example|
       class Person
         include ActiveModel::Validations
 
-        attr_reader :content
+        attr_reader :content, :content2
 
-        def initialize(content)
+        def initialize(content, content2 = nil)
           @content = content.freeze
+          @content2 = content2.freeze
         end
 
         validates :content, xml: true
+
+        validates_xml_of :content2, allow_blank: true
       end
 
       Person.new(example.example_group_instance.content).tap(&:valid?).errors.full_messages
@@ -47,13 +51,16 @@ describe ActiveModel::Validations::XmlValidator do
       class Person
         include ActiveModel::Validations
 
-        attr_reader :content
+        attr_reader :content, :content2
 
-        def initialize(content)
+        def initialize(content, content2 = nil)
           @content = content.freeze
+          @content2 = content2.freeze
         end
 
         validates :content, xml: { schema: 'Schema' }
+
+        validates_xml_of :content2, schema: 'Schema', allow_blank: true
       end
 
       Person.new(example.example_group_instance.content).tap(&:valid?).errors.full_messages
