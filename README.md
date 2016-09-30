@@ -42,7 +42,7 @@ end
 And if you want to use xsd, you will need to define an initializer to setup a path for your schemas:
 
 ```
-ValidatesXmlOf.setup do |configure|
+ValidatesXmlOf.setup do |config|
   config.schema_paths = "lib/xsds"
 end
 ```
