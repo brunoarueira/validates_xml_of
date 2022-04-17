@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'i18n'
 
@@ -5,10 +7,10 @@ describe ValidatesXmlOf do
   describe 'setup' do
     it 'set schema_paths through setup block' do
       ValidatesXmlOf.setup do |config|
-        config.schema_paths = "examples/xsds"
+        config.schema_paths = 'examples/xsds'
       end
 
-      expect(ValidatesXmlOf.schema_paths).to eq "examples/xsds"
+      expect(ValidatesXmlOf.schema_paths).to eq 'examples/xsds'
     end
   end
 
@@ -81,8 +83,8 @@ describe ValidatesXmlOf do
       it 'returns the schema file with one schema path informed' do
         ValidatesXmlOf.schema_paths = 'examples/xsds'
 
-        lookup_schema_file = IO.read(ValidatesXmlOf.lookup_schema_file('Schema'))
-        compared_file = IO.read(File.new('examples/xsds/Schema.xsd'))
+        lookup_schema_file = File.read(ValidatesXmlOf.lookup_schema_file('Schema'))
+        compared_file = File.read(File.new('examples/xsds/Schema.xsd'))
 
         expect(lookup_schema_file).to eq compared_file
       end
@@ -90,8 +92,8 @@ describe ValidatesXmlOf do
       it 'returns the schema file with multiple schema paths informed' do
         ValidatesXmlOf.schema_paths = ['examples/xsds', nil]
 
-        lookup_schema_file = IO.read(ValidatesXmlOf.lookup_schema_file('Schema'))
-        compared_file = IO.read(File.new('examples/xsds/Schema.xsd'))
+        lookup_schema_file = File.read(ValidatesXmlOf.lookup_schema_file('Schema'))
+        compared_file = File.read(File.new('examples/xsds/Schema.xsd'))
 
         expect(lookup_schema_file).to eq compared_file
       end
@@ -99,8 +101,8 @@ describe ValidatesXmlOf do
       it 'returns the schema file with some invalid schema path' do
         ValidatesXmlOf.schema_paths = ['examples/xsds', 'erroneous_path/xsds']
 
-        lookup_schema_file = IO.read(ValidatesXmlOf.lookup_schema_file('Schema'))
-        compared_file = IO.read(File.new('examples/xsds/Schema.xsd'))
+        lookup_schema_file = File.read(ValidatesXmlOf.lookup_schema_file('Schema'))
+        compared_file = File.read(File.new('examples/xsds/Schema.xsd'))
 
         expect(lookup_schema_file).to eq compared_file
       end

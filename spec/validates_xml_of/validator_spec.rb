@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe ValidatesXmlOf::Validator do
@@ -30,7 +32,7 @@ describe ValidatesXmlOf::Validator do
       end
 
       it 'when informed the schema but the xml is nil' do
-        ValidatesXmlOf.schema_paths = "examples/xsds"
+        ValidatesXmlOf.schema_paths = 'examples/xsds'
 
         validator = described_class.new(nil, schema: 'Schema')
 
@@ -42,7 +44,7 @@ describe ValidatesXmlOf::Validator do
       let(:formed_xml) { '<?xml version="1.0"?><foo></foo>' }
 
       before do
-        ValidatesXmlOf.schema_paths = "examples/xsds"
+        ValidatesXmlOf.schema_paths = 'examples/xsds'
       end
 
       it 'when informed an invalid xml from the schema point of view' do
@@ -62,7 +64,7 @@ describe ValidatesXmlOf::Validator do
       let(:formed_xml) { '<?xml version="1.0"?><foo></foo>' }
 
       before do
-        ValidatesXmlOf.schema_paths = "examples/xsds"
+        ValidatesXmlOf.schema_paths = 'examples/xsds'
       end
 
       it 'when xml is well formed' do
