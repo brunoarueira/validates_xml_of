@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'validates_xml_of'
 require 'active_model'
 

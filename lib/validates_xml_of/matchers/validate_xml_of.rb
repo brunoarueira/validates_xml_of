@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'validates_xml_of'
 
 module ValidatesXmlOf
@@ -25,9 +27,7 @@ module ValidatesXmlOf
       def description
         description = "#{@attribute} contains a valid xml"
 
-        if @schema
-          description << " based on '#{@schema}'"
-        end
+        description << " based on '#{@schema}'" if @schema
 
         description
       end

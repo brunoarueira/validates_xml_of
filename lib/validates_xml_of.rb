@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 
 module ValidatesXmlOf
-  autoload :VERSION, "validates_xml_of_of/version"
+  autoload :VERSION, 'validates_xml_of_of/version'
 
   class << self
     attr_accessor :schema_paths
 
     def load_i18n_locales
       require 'i18n'
-      I18n.load_path += Dir.glob(File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'locales', '*.yml')))
+      I18n.load_path += Dir.glob(File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'locales',
+                                                            '*.yml')))
     end
 
     DEFAULT_MESSAGE = 'does not appear to be a valid xml'
@@ -17,11 +20,21 @@ module ValidatesXmlOf
     ERROR_SCHEMA_MESSAGE_I18N_KEY = :invalid_xml_based_on_schema
 
     def default_message
-      i18n_defined? ? I18n.t(ERROR_MESSAGE_I18N_KEY, scope: [:errors, :messages], default: DEFAULT_MESSAGE) : DEFAULT_MESSAGE
+      if i18n_defined?
+        I18n.t(ERROR_MESSAGE_I18N_KEY, scope: %i[errors messages],
+                                       default: DEFAULT_MESSAGE)
+      else
+        DEFAULT_MESSAGE
+      end
     end
 
     def default_schema_message
-      i18n_defined? ? I18n.t(ERROR_SCHEMA_MESSAGE_I18N_KEY, scope: [:errors, :messages], default: DEFAULT_SCHEMA_MESSAGE): DEFAULT_SCHEMA_MESSAGE
+      if i18n_defined?
+        I18n.t(ERROR_SCHEMA_MESSAGE_I18N_KEY, scope: %i[errors messages],
+                                              default: DEFAULT_SCHEMA_MESSAGE)
+      else
+        DEFAULT_SCHEMA_MESSAGE
+      end
     end
 
     def lookup_schema_file(schema_name)
@@ -30,17 +43,7 @@ module ValidatesXmlOf
 
       return schema_file if paths.nil? || paths.empty?
 
-      if paths.is_a?(String)
-        schema_file = schema_file(paths, schema_name)
-      else
-        paths.reject(&:nil?).each do |path|
-          schema_file = schema_file(path, schema_name)
-
-          break if schema_file
-        end
-      end
-
-      schema_file
+      schema_file(paths, schema_name)
     end
 
     protected
@@ -49,12 +52,22 @@ module ValidatesXmlOf
       defined?(I18n)
     end
 
-    def schema_file(path, schema_name)
-      schema_file_name = File.join(path, "#{schema_name}.xsd")
+    def schema_file(paths, schema_name)
+      paths = handle_paths(paths)
 
-      if File.exist?(schema_file_name) && !File.directory?(schema_file_name)
-        return File.open(schema_file_name)
-      end
+      return if paths.nil? || schema_name.nil?
+
+      schema_file_names = paths.map { |path| File.join(path, "#{schema_name}.xsd") }
+
+      schema_file_name = schema_file_names.find { |file_name| File.exist?(file_name) }
+
+      File.open(schema_file_name) if schema_file_name
+    end
+
+    def handle_paths(paths)
+      return if paths.nil?
+
+      !paths.nil? && paths.respond_to?(:compact) ? paths.compact : [paths]
     end
   end
 
