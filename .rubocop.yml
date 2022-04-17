@@ -1,0 +1,14 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.6
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: true
+  Max: 50
+  Exclude:
+    - 'spec/validates_xml_of_spec.rb'
+    - 'spec/validates_xml_of/validator_spec.rb'
+    - 'spec/validates_xml_of/active_model_spec.rb'

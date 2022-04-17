@@ -1,5 +1,7 @@
-require "spec_helper"
-require "validates_xml_of/matchers/validate_xml_of"
+# frozen_string_literal: true
+
+require 'spec_helper'
+require 'validates_xml_of/matchers/validate_xml_of'
 
 class Post
   include ::ActiveModel::Validations
@@ -31,16 +33,21 @@ describe Post do
     end
 
     it 'expect an error since content is empty' do
-      expect {
+      expect do
         should validate_xml_of(:content)
-      }.to raise_error("Expected content to contains a valid xml, but it is \"\"")
+      end.to raise_error('Expected content to contains a valid xml, but it is ""')
     end
 
     it 'expect an error since content2 is a xml' do
-      expect {
+      expect do
         should_not validate_xml_of(:content2).with_schema('Schema')
-      }.to raise_error(RSpec::Expectations::ExpectationNotMetError,
-                       'Expected content2 to not contains a valid xml, but it is "<?xml version=\"1.0\"?><Bar><foo><foo_bar value=\"baz\" /></foo></Bar>"')
+      end.to(
+        raise_error(
+          RSpec::Expectations::ExpectationNotMetError,
+          'Expected content2 to not contains a valid xml, but it is "<?xml version=\"1.0\"?><Bar><foo><foo_bar ' \
+          'value=\"baz\" /></foo></Bar>"'
+        )
+      )
     end
   end
 end
